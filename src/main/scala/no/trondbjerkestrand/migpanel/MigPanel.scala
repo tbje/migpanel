@@ -23,7 +23,9 @@ package object constraints {
   implicit def toRawConstraint(x: String): FullComponentConstraint = RawConstraint(x)
 	implicit def toWrap(x: Wrap.type) = Wrap()	
 	implicit def toSkip(x: Skip.type) = Skip()	
+}
 
+package constraints {
   trait ComponentConstraint {
     val value: String
     override def toString = ""
@@ -85,7 +87,7 @@ package object constraints {
 		def cm = new UnitValue(amount, "cm")
 		def in = new UnitValue(amount, "in")
 		def al = new UnitValue(amount, "al")
-  }
+  } 
 }
 
 import constraints._
