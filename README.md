@@ -1,16 +1,15 @@
-MigPanel:
----------
+##MigPanel:##
 MigPanel is a thin scala wrapper for the MigLayout. Use of this wrapper allows type checking the MigLayout constraints.
 
-## Usage: ##
+### Usage: ###
 
 		object MyPanel extends MigPanel {
 				add(new Label("Hello"), Span >> AlignX(10 cm) >> GapBottom(10))
 				add(new Label("MigLayout"), Skip(2) >> GapLeft(10 px))
-				add(new Label("hello"), Span >> AlignX(10 cm) >> GapBottom(10))
+				add(new Label("Wrapper"), Span >> AlignX(10 cm) >> GapBottom(10))
 		}
 
-## Supported constraints: ##
+### Supported constraints: ###
 * Wrap
 * Span
 * Skip
