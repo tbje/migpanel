@@ -29,19 +29,19 @@ package object constraints {
     override def toString = ""
   }
 
-  object Empty extends ComponentConstraint { val value = "" }
+  object EmptyConstraint extends ComponentConstraint { val value = "" }
 
   trait FullComponentConstraint extends ComponentConstraint {
-    var next: ComponentConstraint = Empty
+    var next: ComponentConstraint = EmptyConstraint
     def >>(insert: ComponentConstraint): FullComponentConstraint = {
       this.next match {
-        case Empty => this.next = insert
+        case EmptyConstraint => this.next = insert
         case next : FullComponentConstraint => next >> insert
       }
       this
     }
     override def toString = (next match {
-				case Empty => value
+				case EmptyConstraint => value
 				case next: FullComponentConstraint => value + ", "
 	    }) + next.toString
   }
@@ -51,19 +51,23 @@ package object constraints {
     def apply() = new FullComponentConstraint { val value = "wrap" }
     def apply(x: Int) = new FullComponentConstraint { val value = "wrap " + x }
   }
+  object Skip { 
+    def >>(next: FullComponentConstraint) = Skip() >> next
+    def apply() = new FullComponentConstraint { val value = "skip" }
+		def apply(x: Int) = new FullComponentConstraint { val value = "skip " + x } 
+	}
   object Span { def apply(x: Int) = new FullComponentConstraint { val value = "span " + x } }
-  object Skip { def apply(x: Int) = new FullComponentConstraint { val value = "skip " + x } }
   object GapTop { def apply(x: UnitValue) = new FullComponentConstraint { val value = "gaptop " + x } }
   object GapBottom { def apply(x: UnitValue) = new FullComponentConstraint { val value = "gapbottom " + x } }
   object GapLeft { def apply(x: UnitValue) = new FullComponentConstraint { val value = "gapleft " + x } }
   object GapRight { def apply(x: UnitValue) = new FullComponentConstraint { val value = "gapright " + x } }
  	object AlignX { 
-		def apply(x: ConstrainUnit) = new FullComponentConstraint { val value = "alignx " + x }
+		def apply(x: UnitValue) = new FullComponentConstraint { val value = "alignx " + x }
 		def leading = new FullComponentConstraint { val value = "alignx leading" } 
 		def trailing = new FullComponentConstraint { val value = "alignx trailing" } 
 	}
  	object AlignY { 
-		def apply(x: ConstrainUnit) = new FullComponentConstraint { val value = "aligny " + x }
+		def apply(x: UnitValue) = new FullComponentConstraint { val value = "aligny " + x }
 		def top = new FullComponentConstraint { val value = "aligny top" } 
 		def bottom = new FullComponentConstraint { val value = "aligny bottom" } 
 	}
@@ -107,5 +111,5 @@ class MigPanel(
 
   protected def areValid(constr: Constraints): (Boolean, String) = (true, "")
 
-  def add(comp: Component, constr: mig.ComponentConstraint = mig.Empty): Unit = peer.add(comp.peer, constr.toString)
+  def add(comp: Component, constr: ComponentConstraint = EmptyConstraint): Unit = peer.add(comp.peer, constr.toString)
 }
