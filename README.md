@@ -19,6 +19,10 @@ MigPanel is a thin scala wrapper for the MigLayout. Use of this wrapper allows t
 * GapRight 
 * AlignX
 * AlignY
+* X
+* X2
+* Y
+* Y2
 * RawConstraint
 * Empty
 

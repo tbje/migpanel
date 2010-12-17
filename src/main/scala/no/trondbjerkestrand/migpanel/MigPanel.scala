@@ -63,6 +63,18 @@ package constraints {
   object GapBottom { def apply(x: UnitValue) = new FullComponentConstraint { val value = "gapbottom " + x } }
   object GapLeft { def apply(x: UnitValue) = new FullComponentConstraint { val value = "gapleft " + x } }
   object GapRight { def apply(x: UnitValue) = new FullComponentConstraint { val value = "gapright " + x } }
+ 	object X { 
+		def apply(x: UnitValue) = new FullComponentConstraint { val value = "x " + x }
+	}
+ 	object X2 { 
+		def apply(x: UnitValue) = new FullComponentConstraint { val value = "x2 " + x }
+	}
+ 	object Y { 
+		def apply(x: UnitValue) = new FullComponentConstraint { val value = "y " + x }
+	}
+ 	object Y2 { 
+		def apply(x: UnitValue) = new FullComponentConstraint { val value = "y2 " + x }
+	}
  	object AlignX { 
 		def apply(x: UnitValue) = new FullComponentConstraint { val value = "alignx " + x }
 		def leading = new FullComponentConstraint { val value = "alignx leading" } 
